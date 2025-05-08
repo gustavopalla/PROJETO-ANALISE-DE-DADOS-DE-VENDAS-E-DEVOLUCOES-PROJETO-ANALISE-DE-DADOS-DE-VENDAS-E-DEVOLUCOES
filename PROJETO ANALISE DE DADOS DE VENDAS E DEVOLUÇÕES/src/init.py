@@ -11,7 +11,6 @@ for arquivo in lista_arquivos:
     if "Vendas" in arquivo or "Devolucoes" in arquivo:
         tabela = pd.read_csv(os.path.join(caminho_pasta, arquivo))
         tabela_total = pd.concat([tabela_total, tabela], ignore_index=True)
-print(tabela_total)
 
 tabela_total['Faturamento'] =  tabela_total['Quantidade Vendida'] * tabela_total['Preco Unitario']
 tabela_total['Custo Unitario'] = tabela_total['Preco Unitario'] * 0.6
@@ -47,12 +46,28 @@ tabela_devolucao = tabela_devolucao[['Quantidade Devolvida']].sort_values(by='Qu
 print('\n Quantidade Devolvida')
 print(tabela_devolucao)
 
+tabela_total['Data'] = pd.to_datetime(tabela_total['Data'])
+tabela_faturamento_mensal = tabela_total.groupby(pd.Grouper(key='Data', freq='M')).sum(numeric_only=True)
+
+print('\n Agrupamento Por Mês')
+print(tabela_faturamento_mensal)
+
+tabela_total['Data'] = pd.to_datetime(tabela_total['Data'])
+tabela_devolvidos_mes = tabela_total.groupby(pd.Grouper(key='Data', freq='M')).sum(numeric_only=True)
+
+print('\n Agrupamento Por Mês')
+print(tabela_devolvidos_mes)
+
 grafico_faturamento_loja = px.bar(tabela_loja, x=tabela_loja.index, y="Faturamento", title="Faturamento por loja") 
 grafico_produtos_vendidos = px.bar(tabela_produtos, x=tabela_produtos.index, y="Quantidade Vendida", title="Produtos Mais Vendidos")
 grafico_produtos_devolvidos = px.bar(tabela_devolucao, x=tabela_devolucao.index, y="Quantidade Devolvida", title="Quantidade de Produtos Devolvidos") 
 grafico_lucro_empresa = px.bar(tabela_lucro, x=tabela_lucro.index, y='Lucro', title="Lucro")
+grafico_agrupamento_data = px.bar(tabela_faturamento_mensal, x=tabela_faturamento_mensal.index, y='Faturamento', title="Faturamento Mensal")
+grafico_devolvidos_mes = px.bar(tabela_devolvidos_mes, x=tabela_devolvidos_mes.index, y='Quantidade Devolvida', title='Quantidade Devolvida Mensal')
 
 grafico_faturamento_loja.show()
 grafico_produtos_devolvidos.show()
 grafico_produtos_vendidos.show()
 grafico_lucro_empresa.show()
+grafico_agrupamento_data.show()
+grafico_devolvidos_mes.show()
