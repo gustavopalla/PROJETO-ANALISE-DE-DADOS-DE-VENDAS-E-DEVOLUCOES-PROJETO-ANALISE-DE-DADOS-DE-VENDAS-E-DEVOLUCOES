@@ -71,6 +71,9 @@ grafico_produtos_vendidos = px.bar(tabela_produtos, x=tabela_produtos.index, y="
 grafico_produtos_devolvidos = px.bar(tabela_devolucao, x=tabela_devolucao.index, y="Quantidade Devolvida", title="Quantidade de Produtos Devolvidos") 
 grafico_lucro_empresa = px.bar(tabela_lucro, x=tabela_lucro.index, y='Lucro', title="Lucro")
 grafico_agrupamento_data = px.bar(tabela_faturamento_mensal, x=tabela_faturamento_mensal.index, y='Faturamento', title="Faturamento Mensal")
+
+grafico_linha_faturamento_mensal = px.line(tabela_faturamento_mensal, x=tabela_faturamento_mensal.index, y='Faturamento', title="Tendências de Faturamento")
+
 grafico_devolvidos_mes = px.bar(tabela_devolvidos_mes, x=tabela_devolvidos_mes.index, y='Quantidade Devolvida', title='Quantidade Devolvida Mensal')
 
 #Print nos Gráficos
@@ -80,3 +83,5 @@ grafico_produtos_vendidos.show()
 grafico_lucro_empresa.show()
 grafico_agrupamento_data.show()
 grafico_devolvidos_mes.show()
+
+grafico_linha_faturamento_mensal.show()
