@@ -46,3 +46,5 @@ grafico_produtos_devolvidos = px.bar(tabela_devolucao, x=tabela_devolucao.index,
 grafico_faturamento_loja.show()
 grafico_produtos_devolvidos.show()
 grafico_produtos_vendidos.show()
+
+#testando commit
