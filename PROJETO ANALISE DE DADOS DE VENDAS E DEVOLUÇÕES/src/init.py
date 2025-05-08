@@ -14,6 +14,8 @@ for arquivo in lista_arquivos:
 print(tabela_total)
 
 tabela_total['Faturamento'] =  tabela_total['Quantidade Vendida'] * tabela_total['Preco Unitario']
+tabela_total['Custo Unitario'] = tabela_total['Preco Unitario'] * 0.6
+tabela_total['Lucro'] = tabela_total['Faturamento'] - (tabela_total['Quantidade Vendida'] * tabela_total['Custo Unitario'])
 
 tabela_produtos = tabela_total.groupby('Produto').sum(numeric_only=True)
 tabela_produtos = tabela_produtos[['Quantidade Vendida']].sort_values(by='Quantidade Vendida', ascending=False)
@@ -26,6 +28,12 @@ tabela_faturamento = tabela_faturamento[['Faturamento']].sort_values(by='Faturam
 
 print("\n Faturamento")
 print(tabela_faturamento)
+
+tabela_lucro = tabela_total.groupby('Produto').sum(numeric_only=True)
+tabela_lucro = tabela_lucro[['Lucro']].sort_values(by='Lucro', ascending=False)
+
+print("\n Lucro")
+print(tabela_lucro)
 
 tabela_loja = tabela_total.groupby('Loja').sum(numeric_only=True)
 tabela_loja = tabela_loja[['Faturamento']]
@@ -42,7 +50,9 @@ print(tabela_devolucao)
 grafico_faturamento_loja = px.bar(tabela_loja, x=tabela_loja.index, y="Faturamento", title="Faturamento por loja") 
 grafico_produtos_vendidos = px.bar(tabela_produtos, x=tabela_produtos.index, y="Quantidade Vendida", title="Produtos Mais Vendidos")
 grafico_produtos_devolvidos = px.bar(tabela_devolucao, x=tabela_devolucao.index, y="Quantidade Devolvida", title="Quantidade de Produtos Devolvidos") 
+grafico_lucro_empresa = px.bar(tabela_lucro, x=tabela_lucro.index, y='Lucro', title="Lucro")
 
 grafico_faturamento_loja.show()
 grafico_produtos_devolvidos.show()
 grafico_produtos_vendidos.show()
+grafico_lucro_empresa.show()
