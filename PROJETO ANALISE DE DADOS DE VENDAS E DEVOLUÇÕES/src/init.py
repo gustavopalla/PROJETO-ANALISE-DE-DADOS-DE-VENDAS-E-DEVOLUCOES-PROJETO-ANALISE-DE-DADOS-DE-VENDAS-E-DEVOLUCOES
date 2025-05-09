@@ -76,12 +76,16 @@ grafico_linha_faturamento_mensal = px.line(tabela_faturamento_mensal, x=tabela_f
 
 grafico_devolvidos_mes = px.bar(tabela_devolvidos_mes, x=tabela_devolvidos_mes.index, y='Quantidade Devolvida', title='Quantidade Devolvida Mensal')
 
-#Print nos Gráficos
-grafico_faturamento_loja.show()
-grafico_produtos_devolvidos.show()
-grafico_produtos_vendidos.show()
-grafico_lucro_empresa.show()
-grafico_agrupamento_data.show()
-grafico_devolvidos_mes.show()
+def exibir_graficos(*graficos):
+    for grafico in graficos:
+        grafico.show()
 
-grafico_linha_faturamento_mensal.show()
+exibir_graficos(
+    grafico_faturamento_loja,
+    grafico_produtos_devolvidos,
+    grafico_produtos_vendidos,
+    grafico_lucro_empresa,
+    grafico_agrupamento_data,
+    grafico_devolvidos_mes,
+    grafico_linha_faturamento_mensal
+)
